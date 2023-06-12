@@ -210,6 +210,8 @@ const divide = (x, y) => {
 // function to deal with errors
 const error = err => {
     updateDisplay(err);
-    clear();
+    firstNumber = '';
+    secondNumber = '';
+    operator = '';
 }
 
