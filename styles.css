@@ -65,16 +65,26 @@ button.button-top {
 }
 
 div.display {
-    font-size: 52pt;
-    padding-right: 1vh;
+    gap: 1vh;
+    font-size: 48pt;
+    padding: 1vh;
+    padding-bottom: 0;
     display: flex;
-    justify-content: end;
-    align-items: center;
+    position: relative;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: end;
     text-align: end;
     height: 20vh;
     width: 100%;
     background-color: lightblue;
     border: 2px solid #313B4E;
+}
+
+div.secondary {
+    position: absolute;
+    top: 1vh;
+    font-size: 12pt;
 }
 
 button:hover {

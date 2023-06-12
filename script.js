@@ -8,6 +8,15 @@ const calculator = document.querySelector('div.calculator');
 const buttonslist = Array.from(calculator.querySelectorAll('button'));
 const result = document.querySelector('div.result');
 
+// map operator symbols to their values
+const OPERATORS = {
+    'times':'x',
+    'divide':'/',
+    'minus':'-',
+    'plus':'+',
+    '' : '',
+}
+
 // map buttons to a dict where key is the name of the button and value is the button DOM obj
 buttons = {}
 buttonslist.forEach(button => {
@@ -58,13 +67,24 @@ function operatorPressed( event ) {
     if (!firstNumber) return;
 
     operator = event.target.value;
+    updateSecondaryDisplay(firstNumber, secondNumber, operator);
 }
 
 // update the display with a supplied value
 function updateDisplay ( toDisplay ) {
     result.textContent = toDisplay;
+    updateSecondaryDisplay(firstNumber, secondNumber, operator);
 };
 
+// updates secondary display which shows whole calculation, called whenever updateDisplay is called
+// has optional parameter "evaluating" which tells whether or not to use the equal sign
+const secondaryDisplay = calculator.querySelector('div.secondary');
+const updateSecondaryDisplay = (firstNumber, secondNumber, operator, evaluating = false) => {
+    toDisplay = `${firstNumber} ${OPERATORS[operator]} ${secondNumber}`
+    if (evaluating) toDisplay = `${toDisplay} =`;
+
+    secondaryDisplay.textContent = toDisplay;
+}
 
 // flip sign of number with pos/neg button
 function flipsign() {
@@ -115,7 +135,8 @@ function evaluate() {
     }
     else if (operator === 'minus') {
         tmpResult = subtract(x, y);
-    }   
+    }       
+
     else if (operator === 'times') {
         tmpResult = multiply(x, y);
     }
@@ -123,6 +144,7 @@ function evaluate() {
         tmpResult = divide(x, y);
     }
 
+    updateSecondaryDisplay(firstNumber, secondNumber, operator, evaluating = true);
     firstNumber = "";
     secondNumber = "";
     operator = ""; 
@@ -164,3 +186,4 @@ const error = err => {
     secondNumber = '';
     operator = '';
 }
+
