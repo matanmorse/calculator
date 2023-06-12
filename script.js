@@ -24,16 +24,47 @@ buttonslist.forEach(button => {
 });
 
 
+const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+const special = {
+    'Control': flipsign,
+    'Backspace': backspace,
+    'Enter': evaluate,
+}
+
+const operators = {
+    'x': 'times',
+    '-': 'minus',
+    '+': 'plus',
+    '/': 'divide',
+}
+
+// add keyboard functions
+document.addEventListener('keydown', event => {
+    key = event.key;
+    console.log(key)
+    // point towards correct function for type of keyboard press
+    if (numbers.includes(key)) numberPressed(key);
+    if (key in operators) operatorPressed(operators[key]);
+    if (key in special) special[key]();
+});
+
 // to all operator buttons add functions
 const operatorButtons = document.querySelectorAll('button.operator');
 operatorButtons.forEach( button => {
-    button.addEventListener('click', operatorPressed);
+    button.addEventListener('click', event => {
+        operator = event.target.value;
+        operatorPressed(operator);
+    });
 });
 
 // to all the numbers add function for when they are pressed
 const numberButtons = document.querySelectorAll('button.number');
 numberButtons.forEach( button => {
-    button.addEventListener('click', numberPressed);
+    button.addEventListener('click', event => {
+        let number = event.target.value;
+        numberPressed(number)
+    });
 });
 
 buttons['A/C'].addEventListener('click', clear);
@@ -41,8 +72,7 @@ buttons['eval'].addEventListener('click', evaluate);
 buttons['posneg'].addEventListener('click', flipsign);
 buttons['backspace'].addEventListener('click', backspace)
 
-function numberPressed( event ) {
-    const number = event.target.value;
+function numberPressed(number) {
     // if an operator hasn't been pressed write to the first number
     if (!operator) {
         firstNumber = firstNumber + number;
@@ -55,9 +85,9 @@ function numberPressed( event ) {
     }
 };
 
-function operatorPressed( event ) {
+function operatorPressed( userPressedOperator ) {
     // check if there is a temporary value
-    if (tmpResult) {
+    if (tmpResult && !firstNumber) {
         // start using it as the first number
         firstNumber = String(tmpResult);
         // reset the value
@@ -73,7 +103,7 @@ function operatorPressed( event ) {
         firstNumber = String(tmpResult);
     }
 
-    operator = event.target.value;
+    operator = userPressedOperator;
     updateSecondaryDisplay(firstNumber, secondNumber, operator);
 }
 
@@ -86,7 +116,7 @@ function updateDisplay ( toDisplay ) {
         error('OVERFLOW');
         return;
     }
-    
+
     updateSecondaryDisplay(firstNumber, secondNumber, operator);
 };
 
