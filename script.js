@@ -2,7 +2,7 @@
 var firstNumber = '';
 var secondNumber = '';
 var operator = '';
-
+var tmpResult = '';
 // get all buttons
 const calculator = document.querySelector('div.calculator');
 const buttonslist = Array.from(calculator.querySelectorAll('button'));
@@ -47,8 +47,16 @@ function numberPressed( event ) {
 };
 
 function operatorPressed( event ) {
+    // check if there is a temporary value
+    if (tmpResult) {
+        // start using it as the first number
+        firstNumber = String(tmpResult);
+        // reset the value
+        tmpResult = '';
+    }
     // if user hasn't put a number yet this doesnt matter
     if (!firstNumber) return;
+
     operator = event.target.value;
 }
 
@@ -83,6 +91,7 @@ function clear() {
     firstNumber = "";
     secondNumber = "";
     operator = "";
+    tmpResult = "";
 };
 
 // evaluate an expression
@@ -99,17 +108,19 @@ function evaluate() {
         return;
     }
     
+    // perform the correct operation depending on the operator 
+    // and store the result in a temporary value in case user wants to use it in the next calculation
     if ( operator === 'plus' ) {
-        add(x, y);
+        tmpResult = add(x, y);
     }
     else if (operator === 'minus') {
-        subtract(x, y);
-    }
+        tmpResult = subtract(x, y);
+    }   
     else if (operator === 'times') {
-        multiply(x, y);
+        tmpResult = multiply(x, y);
     }
     else if (operator === 'divide') {
-        divide(x, y);
+        tmpResult = divide(x, y);
     }
 
     firstNumber = "";
@@ -118,11 +129,16 @@ function evaluate() {
 }
 
 const add = (x, y) => {
-    updateDisplay(x + y);
+    sum = x + y;
+    updateDisplay(sum);
+    return sum;
+    
 }
 
 const subtract = (x, y) => {
-    updateDisplay(x - y)
+    sum = x - y;
+    updateDisplay(sum);
+    return sum;
 }
 
 const multiply = (x, y) => {
@@ -130,6 +146,7 @@ const multiply = (x, y) => {
     // do some dumb stuff to make the number look nice
     product = Math.round(10000000000 * product) / 10000000000
     updateDisplay(product);
+    return product;
 }
 
 const divide = (x, y) => {
@@ -137,6 +154,7 @@ const divide = (x, y) => {
     // do some dumb stuff to make the number look nice
     quotient = Math.round(10000000000 * quotient) / 10000000000
     updateDisplay(quotient);
+    return quotient;
 };
 
 // function to deal with errors
