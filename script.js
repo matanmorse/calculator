@@ -39,7 +39,7 @@ numberButtons.forEach( button => {
 buttons['A/C'].addEventListener('click', clear);
 buttons['eval'].addEventListener('click', evaluate);
 buttons['posneg'].addEventListener('click', flipsign);
-
+buttons['backspace'].addEventListener('click', backspace)
 
 function numberPressed( event ) {
     const number = event.target.value;
@@ -92,6 +92,24 @@ const updateSecondaryDisplay = (firstNumber, secondNumber, operator, evaluating 
 
     secondaryDisplay.textContent = toDisplay;
 }
+
+// removes one character from the active button
+function backspace() {
+    console.log('backspace!')
+    // if theres nothing and the user hits backspace assume they want to clear
+    if (!secondNumber && !firstNumber) {
+        clear();
+    }
+    // determine what the active number is
+    let activeNumber = secondNumber ? secondNumber : firstNumber;
+    activeNumber = activeNumber.split('')
+    activeNumber.pop()
+    activeNumber = activeNumber.join('')
+    secondNumber ? secondNumber = activeNumber : firstNumber = activeNumber;
+    secondNumber ? updateDisplay(secondNumber) : updateDisplay(firstNumber);
+    return;
+}
+
 
 // flip sign of number with pos/neg button
 function flipsign() {
@@ -192,8 +210,6 @@ const divide = (x, y) => {
 // function to deal with errors
 const error = err => {
     updateDisplay(err);
-    firstNumber = '';
-    secondNumber = '';
-    operator = '';
+    clear();
 }
 
