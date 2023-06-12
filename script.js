@@ -66,6 +66,13 @@ function operatorPressed( event ) {
     // if user hasn't put a number yet this doesnt matter
     if (!firstNumber) return;
 
+    // if we're ready to evaluate and the user presses the operator
+    // we should evaluate and set the result to the target number
+    if (firstNumber && secondNumber && operator) {
+        evaluate();
+        firstNumber = String(tmpResult);
+    }
+
     operator = event.target.value;
     updateSecondaryDisplay(firstNumber, secondNumber, operator);
 }
@@ -112,6 +119,7 @@ function clear() {
     secondNumber = "";
     operator = "";
     tmpResult = "";
+    updateSecondaryDisplay(firstNumber, secondNumber, operator);
 };
 
 // evaluate an expression
@@ -164,6 +172,7 @@ const subtract = (x, y) => {
 }
 
 const multiply = (x, y) => {
+    console.log('multiplying')
     let product = x * y
     // do some dumb stuff to make the number look nice
     product = Math.round(10000000000 * product) / 10000000000
@@ -172,6 +181,7 @@ const multiply = (x, y) => {
 }
 
 const divide = (x, y) => {
+    console.log('dividing')
     let quotient = x / y
     // do some dumb stuff to make the number look nice
     quotient = Math.round(10000000000 * quotient) / 10000000000
