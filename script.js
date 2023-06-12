@@ -37,6 +37,7 @@ const operators = {
     '-': 'minus',
     '+': 'plus',
     '/': 'divide',
+    '*': 'times',
 }
 
 // add keyboard functions
