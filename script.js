@@ -1,3 +1,7 @@
+// set watermark
+const watermark = document.querySelector('h4.watermark');
+watermark.innerHTML = `© ${(new Date).getFullYear()} Matan Morse`
+
 // setup variables
 var firstNumber = '';
 var secondNumber = '';
@@ -30,6 +34,7 @@ const special = {
     'Control': flipsign,
     'Backspace': backspace,
     'Enter': evaluate,
+    'Escape': clear,
 }
 
 const operators = {
@@ -43,7 +48,6 @@ const operators = {
 // add keyboard functions
 document.addEventListener('keydown', event => {
     key = event.key;
-    console.log(key)
     // point towards correct function for type of keyboard press
     if (numbers.includes(key)) numberPressed(key);
     if (key in operators) operatorPressed(operators[key]);
@@ -248,6 +252,7 @@ const divide = (x, y) => {
 
 // function to deal with errors
 const error = err => {
+    clear();
     updateDisplay(err);
     firstNumber = '';
     secondNumber = '';

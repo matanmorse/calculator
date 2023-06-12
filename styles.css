@@ -6,6 +6,7 @@ body {
     background-color: #ECEBE3;
     height: 100%;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 * {
@@ -102,4 +103,15 @@ button:active {
 
 button[value="0"] {
     width: 23vh;
+}
+
+h4.watermark {
+    bottom: 10px;
+}
+
+h4 {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 40px;
 }
