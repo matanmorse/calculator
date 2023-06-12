@@ -77,9 +77,16 @@ function operatorPressed( event ) {
     updateSecondaryDisplay(firstNumber, secondNumber, operator);
 }
 
+const display = document.querySelector('div.display');
 // update the display with a supplied value
 function updateDisplay ( toDisplay ) {
     result.textContent = toDisplay;
+    // check if there's an overflow error
+    if (result.clientWidth > display.clientWidth ) {
+        error('OVERFLOW');
+        return;
+    }
+    
     updateSecondaryDisplay(firstNumber, secondNumber, operator);
 };
 
@@ -91,6 +98,7 @@ const updateSecondaryDisplay = (firstNumber, secondNumber, operator, evaluating 
     if (evaluating) toDisplay = `${toDisplay} =`;
 
     secondaryDisplay.textContent = toDisplay;
+
 }
 
 // removes one character from the active button
