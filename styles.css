@@ -49,7 +49,7 @@ div.row {
 button {
     transition: 0.1s all;
     border-radius: 5px;
-    height: 11vh;
+    height: 9.5vh;
     width: 11vh;
     background-color: #CCA72A;
     border: 2px solid #313B4E;
@@ -71,7 +71,7 @@ div.display {
     justify-content: end;
     align-items: center;
     text-align: end;
-    height: 15vh;
+    height: 20vh;
     width: 100%;
     background-color: lightblue;
     border: 2px solid #313B4E;
@@ -86,4 +86,8 @@ button:active {
   filter: brightness(90%);
   box-shadow: 0 5px black;
   transform: translateY(1px);
+}
+
+button[value="0"] {
+    width: 23vh;
 }
