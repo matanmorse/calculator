@@ -192,7 +192,7 @@ function evaluate() {
 
     // check for invalid eval cases
     // x or y will be falsy if they are NaN
-    if (!operator || !firstNumber || !secondNumber || !x || !y) {
+    if (!operator || !firstNumber || !secondNumber || (typeof x !== 'number') || typeof y !== 'number') {
         error('ERROR')
         return;
     }
