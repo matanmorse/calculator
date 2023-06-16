@@ -1,10 +1,8 @@
 html {
-    max-height: 100vh;
 }
 
 body {
     background-color: #ECEBE3;
-    height: 100%;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
@@ -18,9 +16,9 @@ div.main-content {
 }
 
 div.calculator {
-    margin: 8rem auto 0 auto;
+    margin: 10vh auto 0 auto;
     height: 65vh;
-    width: 50vh;
+    width: min(50vh, 95vw);
     background-color: #C5CAD1;
     border: 6px solid #313B4E;
     display: flex;
@@ -34,6 +32,7 @@ div.calculator {
 div.buttons {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1vh;
     justify-content: space-between;
     height: 100%;
@@ -51,10 +50,10 @@ button {
     transition: 0.1s all;
     border-radius: 5px;
     height: 9.5vh;
-    width: 11vh;
+    width: min(11vh, 20vw);
     background-color: #CCA72A;
     border: 2px solid #313B4E;
-    font-size: 20pt;
+    font-size: min(20pt, 7vw);
 }
 
 button.button-right {
@@ -66,8 +65,8 @@ button.button-top {
 }
 
 div.display {
-    gap: 1vh;
-    font-size: 5vh;
+    gap: 1vh;   
+    font-size: min(5vh, calc(2vw + 2vh));
     padding: 1vh;
     padding-bottom: 0;
     display: flex;
@@ -85,7 +84,7 @@ div.display {
 div.secondary {
     position: absolute;
     top: 1vh;
-    font-size: 12pt;
+    font-size: min(12pt, 3vw);
 }
 
 button:hover {
@@ -102,16 +101,25 @@ button:active {
 }
 
 button[value="0"] {
-    width: 23vh;
+    width: min(23vh, 42vw);
 }
 
 h4.watermark {
-    bottom: 10px;
+    margin: 0;
 }
 
 h4 {
-    position: absolute;
+    margin: 0;
     width: 100%;
     text-align: center;
-    bottom: 40px;
+}
+
+div.watermark-box {
+    bottom: 0vh;
+    margin: auto;
+    margin-top: 6vh;
+}
+
+div.watermark-box > * {
+    font-size: min(inherit, 0.5vh);
 }
